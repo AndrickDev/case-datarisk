@@ -1,10 +1,10 @@
-# 📊 Case Técnico – Cientista de Dados Júnior 2025 (DataRisk)
+#  Case Técnico – Cientista de Dados Júnior 2025 (DataRisk)
 
 Este repositório contém a solução completa do desafio técnico da DataRisk, com foco na previsão da **probabilidade de inadimplência** de clientes, utilizando dados cadastrais, histórico de pagamentos e indicadores mensais.
 
 ---
 
-## 🚀 Como executar o projeto
+##  Como executar o projeto
 
 O projeto foi desenvolvido em **Python 3.10** dentro de um ambiente **Anaconda**. Siga os passos abaixo para rodar o notebook corretamente:
 
