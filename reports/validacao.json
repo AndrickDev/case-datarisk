@@ -1,0 +1,175 @@
+{
+  "taxa_alvo": 0.07021985687343374,
+  "n": 77414,
+  "conjuntos": {
+    "notebook_sem_id": {
+      "features": [
+        "VALOR_A_PAGAR",
+        "TAXA",
+        "MES_EMISSAO",
+        "DIA_EMISSAO",
+        "DIA_VENCIMENTO"
+      ],
+      "aleatoria": {
+        "media": {
+          "auc": 0.8240469645417857,
+          "ks": 0.5184392573890155,
+          "gini": 0.6480939290835716
+        },
+        "desvio": {
+          "auc": 0.003334354219948438,
+          "ks": 0.0026004585410895975,
+          "gini": 0.006668708439896875
+        },
+        "n_folds": 5
+      },
+      "grupo_cliente": {
+        "media": {
+          "auc": 0.7519379992261903,
+          "ks": 0.4038028683047904,
+          "gini": 0.5038759984523807
+        },
+        "desvio": {
+          "auc": 0.020889888265151643,
+          "ks": 0.02379738767445693,
+          "gini": 0.041779776530303285
+        },
+        "n_folds": 5
+      },
+      "out_of_time_k3": {
+        "auc": 0.7441036029292514,
+        "ks": 0.38515787766508225,
+        "gini": 0.48820720585850275,
+        "n_treino": 70012,
+        "n_teste": 7402,
+        "taxa_alvo_teste": 0.062415563361253715
+      },
+      "out_of_time_k6": {
+        "auc": 0.7017579582569339,
+        "ks": 0.3345336278411626,
+        "gini": 0.40351591651386776,
+        "n_treino": 63147,
+        "n_teste": 14267,
+        "taxa_alvo_teste": 0.06287236279526179
+      }
+    },
+    "completo": {
+      "features": [
+        "VALOR_A_PAGAR",
+        "TAXA",
+        "RENDA_MES_ANTERIOR",
+        "NO_FUNCIONARIOS",
+        "MES_EMISSAO",
+        "DIA_EMISSAO",
+        "DIA_VENCIMENTO",
+        "PRAZO_DIAS",
+        "TEMPO_CADASTRO_DIAS",
+        "DDD",
+        "SEGMENTO_INDUSTRIAL",
+        "DOMINIO_EMAIL",
+        "PORTE",
+        "CEP_2_DIG"
+      ],
+      "aleatoria": {
+        "media": {
+          "auc": 0.9619161800684793,
+          "ks": 0.8159871917948971,
+          "gini": 0.9238323601369585
+        },
+        "desvio": {
+          "auc": 0.0035199042202523506,
+          "ks": 0.009326941888384779,
+          "gini": 0.007039808440504701
+        },
+        "n_folds": 5
+      },
+      "grupo_cliente": {
+        "media": {
+          "auc": 0.791051147481876,
+          "ks": 0.4561795708217534,
+          "gini": 0.582102294963752
+        },
+        "desvio": {
+          "auc": 0.032180185221749015,
+          "ks": 0.04269681969247598,
+          "gini": 0.06436037044349803
+        },
+        "n_folds": 5
+      },
+      "out_of_time_k3": {
+        "auc": 0.9016963583966466,
+        "ks": 0.7104133138715271,
+        "gini": 0.8033927167932933,
+        "n_treino": 70012,
+        "n_teste": 7402,
+        "taxa_alvo_teste": 0.062415563361253715
+      },
+      "out_of_time_k6": {
+        "auc": 0.9022461641856133,
+        "ks": 0.6763423995383931,
+        "gini": 0.8044923283712266,
+        "n_treino": 63147,
+        "n_teste": 14267,
+        "taxa_alvo_teste": 0.06287236279526179
+      }
+    },
+    "completo_sem_taxa_valor": {
+      "features": [
+        "RENDA_MES_ANTERIOR",
+        "NO_FUNCIONARIOS",
+        "MES_EMISSAO",
+        "DIA_EMISSAO",
+        "DIA_VENCIMENTO",
+        "PRAZO_DIAS",
+        "TEMPO_CADASTRO_DIAS",
+        "DDD",
+        "SEGMENTO_INDUSTRIAL",
+        "DOMINIO_EMAIL",
+        "PORTE",
+        "CEP_2_DIG"
+      ],
+      "aleatoria": {
+        "media": {
+          "auc": 0.9511264535395529,
+          "ks": 0.7779588114453536,
+          "gini": 0.9022529070791062
+        },
+        "desvio": {
+          "auc": 0.0027717716224728677,
+          "ks": 0.006529927569168923,
+          "gini": 0.005543543244945735
+        },
+        "n_folds": 5
+      },
+      "grupo_cliente": {
+        "media": {
+          "auc": 0.7448385752635472,
+          "ks": 0.38196153891778556,
+          "gini": 0.4896771505270946
+        },
+        "desvio": {
+          "auc": 0.029942094032912977,
+          "ks": 0.05222277728213779,
+          "gini": 0.05988418806582596
+        },
+        "n_folds": 5
+      },
+      "out_of_time_k3": {
+        "auc": 0.8798086879498983,
+        "ks": 0.6448014521501554,
+        "gini": 0.7596173758997966,
+        "n_treino": 70012,
+        "n_teste": 7402,
+        "taxa_alvo_teste": 0.062415563361253715
+      },
+      "out_of_time_k6": {
+        "auc": 0.8763815477336989,
+        "ks": 0.6035589420064721,
+        "gini": 0.7527630954673978,
+        "n_treino": 63147,
+        "n_teste": 14267,
+        "taxa_alvo_teste": 0.06287236279526179
+      }
+    }
+  }
+}
