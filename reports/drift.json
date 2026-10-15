@@ -1,0 +1,584 @@
+{
+  "limites": {
+    "alerta": 0.25,
+    "atencao": 0.1
+  },
+  "referencia_variaveis": [
+    "2018-08",
+    "2018-09",
+    "2018-10",
+    "2018-11",
+    "2018-12",
+    "2019-01",
+    "2019-02",
+    "2019-03",
+    "2019-04",
+    "2019-05",
+    "2019-06",
+    "2019-07",
+    "2019-08",
+    "2019-09",
+    "2019-10",
+    "2019-11",
+    "2019-12",
+    "2020-01",
+    "2020-02",
+    "2020-03",
+    "2020-04",
+    "2020-05",
+    "2020-06",
+    "2020-07",
+    "2020-08",
+    "2020-09",
+    "2020-10",
+    "2020-11",
+    "2020-12"
+  ],
+  "referencia_escore": [
+    "2020-10",
+    "2020-11",
+    "2020-12"
+  ],
+  "safras_monitoradas": [
+    "2021-01",
+    "2021-02",
+    "2021-03",
+    "2021-04",
+    "2021-05",
+    "2021-06",
+    "2021-07",
+    "2021-08",
+    "2021-09",
+    "2021-10",
+    "2021-11"
+  ],
+  "origem_safras": {
+    "2021-01": "desenvolvimento",
+    "2021-02": "desenvolvimento",
+    "2021-03": "desenvolvimento",
+    "2021-04": "desenvolvimento",
+    "2021-05": "desenvolvimento",
+    "2021-06": "desenvolvimento",
+    "2021-07": "teste_desafio",
+    "2021-08": "teste_desafio",
+    "2021-09": "teste_desafio",
+    "2021-10": "teste_desafio",
+    "2021-11": "teste_desafio"
+  },
+  "psi_variaveis": {
+    "2021-01": {
+      "VALOR_A_PAGAR": 0.029991423943844717,
+      "TAXA": 0.0006613821977239242,
+      "RENDA_MES_ANTERIOR": 0.057779580456900015,
+      "NO_FUNCIONARIOS": 0.3169834968728615,
+      "MES_EMISSAO": 8.83894911261784,
+      "DIA_EMISSAO": 0.06997657751411958,
+      "DIA_VENCIMENTO": 0.2009703639174918,
+      "PRAZO_DIAS": 0.00795000014530741,
+      "TEMPO_CADASTRO_DIAS": 0.9242227863922043,
+      "DDD": 0.059611341602722606,
+      "SEGMENTO_INDUSTRIAL": 0.004183053162658244,
+      "DOMINIO_EMAIL": 0.007169867353200707,
+      "PORTE": 0.0007714822448573255,
+      "CEP_2_DIG": 0.07626263268316166
+    },
+    "2021-02": {
+      "VALOR_A_PAGAR": 0.20058906544783206,
+      "TAXA": 0.0029048496036031537,
+      "RENDA_MES_ANTERIOR": 0.015607923929904498,
+      "NO_FUNCIONARIOS": 0.35060728645019174,
+      "MES_EMISSAO": 9.03630648299582,
+      "DIA_EMISSAO": 0.08740680892526526,
+      "DIA_VENCIMENTO": 0.272020983367977,
+      "PRAZO_DIAS": 0.012821693917248498,
+      "TEMPO_CADASTRO_DIAS": 0.7661734145810786,
+      "DDD": 0.07328531683724444,
+      "SEGMENTO_INDUSTRIAL": 0.0064968736199027596,
+      "DOMINIO_EMAIL": 0.006188254257442994,
+      "PORTE": 0.0022109030409657427,
+      "CEP_2_DIG": 0.08772069565991099
+    },
+    "2021-03": {
+      "VALOR_A_PAGAR": 0.2031531173973605,
+      "TAXA": 0.005349151080026917,
+      "RENDA_MES_ANTERIOR": 0.030309329370224618,
+      "NO_FUNCIONARIOS": 0.3537921805548167,
+      "MES_EMISSAO": 7.811806748715867,
+      "DIA_EMISSAO": 0.054633508005006104,
+      "DIA_VENCIMENTO": 0.15098507773492428,
+      "PRAZO_DIAS": 0.024190222639789604,
+      "TEMPO_CADASTRO_DIAS": 0.8707232766091961,
+      "DDD": 0.10360718475521052,
+      "SEGMENTO_INDUSTRIAL": 0.005699499977382292,
+      "DOMINIO_EMAIL": 0.012987613409843926,
+      "PORTE": 0.0012571997988620627,
+      "CEP_2_DIG": 0.10841085957698939
+    },
+    "2021-04": {
+      "VALOR_A_PAGAR": 0.2553050014562016,
+      "TAXA": 0.018941349198555422,
+      "RENDA_MES_ANTERIOR": 0.05451687437463323,
+      "NO_FUNCIONARIOS": 0.3227839857318035,
+      "MES_EMISSAO": 7.811806748715867,
+      "DIA_EMISSAO": 0.08846480439417323,
+      "DIA_VENCIMENTO": 0.04399125962683296,
+      "PRAZO_DIAS": 0.050231360847523415,
+      "TEMPO_CADASTRO_DIAS": 0.8595598580726967,
+      "DDD": 0.07990424326061145,
+      "SEGMENTO_INDUSTRIAL": 0.0032848185296378823,
+      "DOMINIO_EMAIL": 0.006955392167104347,
+      "PORTE": 0.004061285973170219,
+      "CEP_2_DIG": 0.0773733097730508
+    },
+    "2021-05": {
+      "VALOR_A_PAGAR": 0.37175738474652853,
+      "TAXA": 0.001458351168014558,
+      "RENDA_MES_ANTERIOR": 0.004463275563022986,
+      "NO_FUNCIONARIOS": 0.30336876409257596,
+      "MES_EMISSAO": 9.020951598759122,
+      "DIA_EMISSAO": 0.08024816997594619,
+      "DIA_VENCIMENTO": 0.021224192621451768,
+      "PRAZO_DIAS": 0.02670056524923101,
+      "TEMPO_CADASTRO_DIAS": 0.8347599408781352,
+      "DDD": 0.08514999772177152,
+      "SEGMENTO_INDUSTRIAL": 0.007539478874251784,
+      "DOMINIO_EMAIL": 0.004185454585134195,
+      "PORTE": 0.003346167194292189,
+      "CEP_2_DIG": 0.10074341516628303
+    },
+    "2021-06": {
+      "VALOR_A_PAGAR": 0.434457368320405,
+      "TAXA": 0.0012335765400130624,
+      "RENDA_MES_ANTERIOR": 0.04949588467497677,
+      "NO_FUNCIONARIOS": 0.30660407512188,
+      "MES_EMISSAO": 7.589233286952685,
+      "DIA_EMISSAO": 0.03570241450965018,
+      "DIA_VENCIMENTO": 0.17254622856170115,
+      "PRAZO_DIAS": 0.037059243179804316,
+      "TEMPO_CADASTRO_DIAS": 0.8884541789831091,
+      "DDD": 0.0956604668066804,
+      "SEGMENTO_INDUSTRIAL": 0.003651107391962116,
+      "DOMINIO_EMAIL": 0.01375359054044617,
+      "PORTE": 0.0018397709591372955,
+      "CEP_2_DIG": 0.10648236627796284
+    },
+    "2021-07": {
+      "VALOR_A_PAGAR": 0.5222051310106379,
+      "TAXA": 0.0027924931430675618,
+      "RENDA_MES_ANTERIOR": 0.02876719386471605,
+      "NO_FUNCIONARIOS": 0.26701803796268014,
+      "MES_EMISSAO": 7.589233286952685,
+      "DIA_EMISSAO": 0.04239720648195222,
+      "DIA_VENCIMENTO": 0.10056504886183211,
+      "PRAZO_DIAS": 0.024907142013421344,
+      "TEMPO_CADASTRO_DIAS": 0.8631956739942709,
+      "DDD": 0.1077815919555606,
+      "SEGMENTO_INDUSTRIAL": 0.002284057389931612,
+      "DOMINIO_EMAIL": 0.014914539620565636,
+      "PORTE": 0.0026507437675697253,
+      "CEP_2_DIG": 0.114679556518556
+    },
+    "2021-08": {
+      "VALOR_A_PAGAR": 0.6067031684555214,
+      "TAXA": 0.002904952425410729,
+      "RENDA_MES_ANTERIOR": 0.043961053165073205,
+      "NO_FUNCIONARIOS": 0.31940658870545163,
+      "MES_EMISSAO": 8.559284674352538,
+      "DIA_EMISSAO": 0.03012349118737781,
+      "DIA_VENCIMENTO": 0.23596884610171193,
+      "PRAZO_DIAS": 0.0393124440645083,
+      "TEMPO_CADASTRO_DIAS": 1.0140108540040107,
+      "DDD": 0.11242031177443268,
+      "SEGMENTO_INDUSTRIAL": 0.009850275674882808,
+      "DOMINIO_EMAIL": 0.013289401954506796,
+      "PORTE": 0.00038253885714634975,
+      "CEP_2_DIG": 0.11956928867681489
+    },
+    "2021-09": {
+      "VALOR_A_PAGAR": 0.7875038179816156,
+      "TAXA": 0.006586818479999807,
+      "RENDA_MES_ANTERIOR": 0.016631701287347696,
+      "NO_FUNCIONARIOS": 0.3098418474509852,
+      "MES_EMISSAO": 8.183541488958715,
+      "DIA_EMISSAO": 0.03326487742819791,
+      "DIA_VENCIMENTO": 0.11685657912334114,
+      "PRAZO_DIAS": 0.03845417778468689,
+      "TEMPO_CADASTRO_DIAS": 0.929924670572743,
+      "DDD": 0.1150762106024554,
+      "SEGMENTO_INDUSTRIAL": 0.0051149962132787455,
+      "DOMINIO_EMAIL": 0.0214794932555654,
+      "PORTE": 0.0011730705339054828,
+      "CEP_2_DIG": 0.1596878227647414
+    },
+    "2021-10": {
+      "VALOR_A_PAGAR": 0.7488730705678812,
+      "TAXA": 0.008574996514776372,
+      "RENDA_MES_ANTERIOR": 0.038309841120728605,
+      "NO_FUNCIONARIOS": 0.318867133442805,
+      "MES_EMISSAO": 8.12081685499691,
+      "DIA_EMISSAO": 0.08301234875583437,
+      "DIA_VENCIMENTO": 0.16367110287642958,
+      "PRAZO_DIAS": 0.06232629958990157,
+      "TEMPO_CADASTRO_DIAS": 0.8989497967749874,
+      "DDD": 0.10038182186077121,
+      "SEGMENTO_INDUSTRIAL": 0.004853920992641275,
+      "DOMINIO_EMAIL": 0.01694775959830837,
+      "PORTE": 0.0016715137392556536,
+      "CEP_2_DIG": 0.11763487653464796
+    },
+    "2021-11": {
+      "VALOR_A_PAGAR": 0.7441602081302104,
+      "TAXA": 0.005851154578217403,
+      "RENDA_MES_ANTERIOR": 0.057349834178795696,
+      "NO_FUNCIONARIOS": 0.35921621416668637,
+      "MES_EMISSAO": 8.118501690062821,
+      "DIA_EMISSAO": 1.1011003744264427,
+      "DIA_VENCIMENTO": 0.8704680662975738,
+      "PRAZO_DIAS": 0.18407485106285287,
+      "TEMPO_CADASTRO_DIAS": 0.8440005720246905,
+      "DDD": 0.10805052030266478,
+      "SEGMENTO_INDUSTRIAL": 0.010459746295904227,
+      "DOMINIO_EMAIL": 0.019297504007384687,
+      "PORTE": 0.002337906027400354,
+      "CEP_2_DIG": 0.17903987479501127
+    }
+  },
+  "psi_escore": {
+    "2021-01": 0.03194553208834732,
+    "2021-02": 0.5023037676977573,
+    "2021-03": 0.6033438178554206,
+    "2021-04": 0.010607590010402967,
+    "2021-05": 0.014974345131563361,
+    "2021-06": 0.01201805296284554,
+    "2021-07": 0.017376923265173292,
+    "2021-08": 0.018402480299271724,
+    "2021-09": 0.03256937996894246,
+    "2021-10": 0.02493557508359656,
+    "2021-11": 0.07213081309366444
+  },
+  "ks_escore_vs_referencia": {
+    "2021-01": 0.04604234012399688,
+    "2021-02": 0.31407625050689025,
+    "2021-03": 0.338264544720604,
+    "2021-04": 0.04547767753874621,
+    "2021-05": 0.05722358507456882,
+    "2021-06": 0.049267362801565184,
+    "2021-07": 0.03976117152069991,
+    "2021-08": 0.04991384300967411,
+    "2021-09": 0.06418047501175467,
+    "2021-10": 0.034390269674408724,
+    "2021-11": 0.11009937289870358
+  },
+  "ks_escore_safras_consecutivas": {
+    "2021-01->2021-02": 0.28296768027592134,
+    "2021-02->2021-03": 0.03936095789803501,
+    "2021-03->2021-04": 0.29851470670817837,
+    "2021-04->2021-05": 0.02380272575953013,
+    "2021-05->2021-06": 0.03612066719671703,
+    "2021-06->2021-07": 0.07224355061863363,
+    "2021-07->2021-08": 0.023038555320453014,
+    "2021-08->2021-09": 0.02408205003010644,
+    "2021-09->2021-10": 0.05967898793795562,
+    "2021-10->2021-11": 0.11765293728764048
+  },
+  "variaveis_calendario": [
+    "DIA_EMISSAO",
+    "DIA_VENCIMENTO",
+    "MES_EMISSAO",
+    "TEMPO_CADASTRO_DIAS"
+  ],
+  "alertas": [
+    {
+      "safra": "2021-01",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.3169834968728615,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-01",
+      "variavel": "MES_EMISSAO",
+      "psi": 8.83894911261784,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-01",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.9242227863922043,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-02",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.35060728645019174,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-02",
+      "variavel": "MES_EMISSAO",
+      "psi": 9.03630648299582,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-02",
+      "variavel": "DIA_VENCIMENTO",
+      "psi": 0.272020983367977,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-02",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.7661734145810786,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-02",
+      "variavel": "ESCORE",
+      "psi": 0.5023037676977573,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-03",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.3537921805548167,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-03",
+      "variavel": "MES_EMISSAO",
+      "psi": 7.811806748715867,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-03",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.8707232766091961,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-03",
+      "variavel": "ESCORE",
+      "psi": 0.6033438178554206,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-04",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.2553050014562016,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-04",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.3227839857318035,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-04",
+      "variavel": "MES_EMISSAO",
+      "psi": 7.811806748715867,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-04",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.8595598580726967,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-05",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.37175738474652853,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-05",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.30336876409257596,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-05",
+      "variavel": "MES_EMISSAO",
+      "psi": 9.020951598759122,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-05",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.8347599408781352,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-06",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.434457368320405,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-06",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.30660407512188,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-06",
+      "variavel": "MES_EMISSAO",
+      "psi": 7.589233286952685,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-06",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.8884541789831091,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-07",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.5222051310106379,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-07",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.26701803796268014,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-07",
+      "variavel": "MES_EMISSAO",
+      "psi": 7.589233286952685,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-07",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.8631956739942709,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-08",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.6067031684555214,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-08",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.31940658870545163,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-08",
+      "variavel": "MES_EMISSAO",
+      "psi": 8.559284674352538,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-08",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 1.0140108540040107,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-09",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.7875038179816156,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-09",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.3098418474509852,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-09",
+      "variavel": "MES_EMISSAO",
+      "psi": 8.183541488958715,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-09",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.929924670572743,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-10",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.7488730705678812,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-10",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.318867133442805,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-10",
+      "variavel": "MES_EMISSAO",
+      "psi": 8.12081685499691,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-10",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.8989497967749874,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-11",
+      "variavel": "VALOR_A_PAGAR",
+      "psi": 0.7441602081302104,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-11",
+      "variavel": "NO_FUNCIONARIOS",
+      "psi": 0.35921621416668637,
+      "tipo": "drift"
+    },
+    {
+      "safra": "2021-11",
+      "variavel": "MES_EMISSAO",
+      "psi": 8.118501690062821,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-11",
+      "variavel": "DIA_EMISSAO",
+      "psi": 1.1011003744264427,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-11",
+      "variavel": "DIA_VENCIMENTO",
+      "psi": 0.8704680662975738,
+      "tipo": "estrutural"
+    },
+    {
+      "safra": "2021-11",
+      "variavel": "TEMPO_CADASTRO_DIAS",
+      "psi": 0.8440005720246905,
+      "tipo": "estrutural"
+    }
+  ],
+  "psi_maximo_por_variavel": {
+    "VALOR_A_PAGAR": 0.7875038179816156,
+    "TAXA": 0.018941349198555422,
+    "RENDA_MES_ANTERIOR": 0.057779580456900015,
+    "NO_FUNCIONARIOS": 0.35921621416668637,
+    "MES_EMISSAO": 9.03630648299582,
+    "DIA_EMISSAO": 1.1011003744264427,
+    "DIA_VENCIMENTO": 0.8704680662975738,
+    "PRAZO_DIAS": 0.18407485106285287,
+    "TEMPO_CADASTRO_DIAS": 1.0140108540040107,
+    "DDD": 0.1150762106024554,
+    "SEGMENTO_INDUSTRIAL": 0.010459746295904227,
+    "DOMINIO_EMAIL": 0.0214794932555654,
+    "PORTE": 0.004061285973170219,
+    "CEP_2_DIG": 0.17903987479501127
+  }
+}
