@@ -1,0 +1,20 @@
+{
+  "colunas_x": [
+    "ID_CLIENTE",
+    "VALOR_A_PAGAR",
+    "TAXA",
+    "MES_EMISSAO",
+    "DIA_EMISSAO",
+    "DIA_VENCIMENTO"
+  ],
+  "identificador_presente": true,
+  "auc_com_id_cliente": {
+    "media": 0.9299490217748723,
+    "desvio": 0.002382248461472536
+  },
+  "auc_sem_id_cliente": {
+    "media": 0.8227488605718613,
+    "desvio": 0.004234791987993147
+  },
+  "validacao": "StratifiedKFold(5, shuffle=True, random_state=42), sem agrupamento"
+}
