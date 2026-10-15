@@ -1,10 +1,18 @@
 # Probabilidade de inadimplência – Case Datarisk (Cientista de Dados Júnior 2025)
 
-Modelo de probabilidade de inadimplência (PD) para cobranças de clientes pessoa jurídica. O alvo `INADIMPLENTE` é 1 quando o pagamento ocorre com 5 ou mais dias de atraso em relação ao vencimento (taxa observada de 7,02% em 77.414 documentos e 1.248 clientes).
+Modelo de probabilidade de inadimplência para cobranças de clientes pessoa jurídica. O alvo `INADIMPLENTE` é 1 quando o pagamento ocorre com 5 ou mais dias de atraso (7,02% de 77.414 documentos, 1.248 clientes).
 
-O repositório contém o notebook original do case, mantido como registro, e um pacote em `src/` com a solução revisada: lista única de variáveis, validação por grupo de cliente e out-of-time, métricas de decisão, calibração, monitoramento de drift, explicabilidade, serialização do modelo e API de escore.
+O notebook original está mantido como registro e termina com uma Parte 2 que corrige o vazamento. A solução revisada está em `src/`. Todos os números abaixo foram gerados pelos scripts e estão em `reports/`. Os dados do desafio não são versionados.
 
-Todos os números deste documento foram gerados pelos scripts de `src/` e estão em `reports/`. Os dados do desafio não são versionados.
+## Jornada do projeto
+
+| Etapa | O que aconteceu | Resultado |
+|---|---|---|
+| 1. Ponto de partida | LightGBM com busca em grade no notebook original | AUC 0,93 na validação aleatória |
+| 2. Desconfiança | Salto de 0,73 (regressão logística com OptBinning) para 0,93 sem explicação nas variáveis | Revisão das colunas de `X` |
+| 3. Diagnóstico | `ID_CLIENTE` estava entre as variáveis e a validação aleatória misturava documentos do mesmo cliente | 0,93 cai para 0,82 sem o identificador |
+| 4. Correção | Lista única de variáveis; validação por grupo de cliente e out-of-time | Cliente novo: AUC 0,80; safra futura: AUC 0,90 |
+| 5. Onde parou | Calibração, limiar por custo, drift, explicabilidade, API e testes; limitações registradas | Próximo passo: variáveis de comportamento histórico |
 
 ## Resultados
 
@@ -19,7 +27,28 @@ AUC, KS e Gini do LightGBM com hiperparâmetros do notebook (300 árvores, profu
 
 Leitura: a validação aleatória é a mais otimista porque documentos do mesmo cliente caem em treino e validação. A validação por grupo estima o desempenho em clientes não vistos (AUC 0,80). A validação out-of-time estima o desempenho em safras futuras para clientes já conhecidos (AUC 0,90), que é o cenário da base de teste do desafio: 98,1% dos documentos da base de teste pertencem a clientes presentes no desenvolvimento.
 
-### Comparação entre conjuntos de variáveis
+## Fluxo da solução
+
+```mermaid
+flowchart TD
+    A["Bases CSV: cadastral, info, pagamentos, teste"] --> B["data.py: junção das bases e alvo INADIMPLENTE (atraso de 5 dias ou mais)"]
+    B --> C["features.py: lista única de variáveis e Pipeline sklearn"]
+    C --> D["validacao.py: aleatória, por grupo de cliente e out-of-time"]
+    C --> E["decisao.py: limiar por custo e calibração"]
+    C --> F["explicabilidade.py: SHAP, IV e odds ratio"]
+    C --> G["treino.py: modelo final em joblib"]
+    G --> H["api.py: POST /score"]
+    B --> I["drift.py: PSI e KS por safra"]
+    G --> I
+    B --> J["auditoria.py: vazamento de ID_CLIENTE no notebook"]
+```
+
+## Detalhes dos resultados
+
+Cada bloco abaixo expande a análise correspondente.
+
+<details>
+<summary>Comparação entre conjuntos de variáveis</summary>
 
 | Conjunto | Aleatória (AUC) | Grupo (AUC) | Out-of-time k=6 (AUC) |
 |---|---|---|---|
@@ -29,7 +58,10 @@ Leitura: a validação aleatória é a mais otimista porque documentos do mesmo 
 
 KS e Gini de cada conjunto estão em `reports/validacao.json`.
 
-### Auditoria de vazamento do modelo original
+</details>
+
+<details>
+<summary>Auditoria de vazamento do modelo original</summary>
 
 O LightGBM final do notebook usa `X.columns = ['ID_CLIENTE', 'VALOR_A_PAGAR', 'TAXA', 'MES_EMISSAO', 'DIA_EMISSAO', 'DIA_VENCIMENTO']`. O identificador entra porque `X` é montado com `select_dtypes` sobre colunas numéricas e `ID_CLIENTE` é `int64`. As variáveis cadastrais e de renda não chegam a esse modelo.
 
@@ -40,11 +72,17 @@ O LightGBM final do notebook usa `X.columns = ['ID_CLIENTE', 'VALOR_A_PAGAR', 'T
 
 O AUC de 0,9299 do notebook inclui o identificador. Sem ele, cai para 0,8227 na mesma validação. O identificador piora o desempenho por grupo de cliente (0,6999 contra 0,7473) e o melhora out-of-time (0,8256 contra 0,7022), o que é compatível com um efeito fixo de cliente: ajuda quando o cliente já foi visto e não generaliza para clientes novos. O valor de 0,8227 usa `StratifiedKFold(5, shuffle=True, random_state=42)` sobre as colunas do notebook; a diferença para os 0,8240 da tabela anterior vem do pré-processamento do pipeline do pacote (imputação pela mediana dentro do pipeline).
 
-### Decisão sobre as variáveis
+</details>
+
+<details>
+<summary>Decisão sobre as variáveis</summary>
 
 `PORTE`, `RENDA_MES_ANTERIOR` e `SEGMENTO_INDUSTRIAL` entram no modelo final, junto com as demais variáveis cadastrais, de renda e de prazo (lista única em `src/config.py`). Critério: o conjunto completo supera o conjunto reduzido em todos os esquemas, com AUC out-of-time de 0,9022 contra 0,7018 e por grupo de 0,7981 contra 0,7465. `FLAG_PF` foi excluída por ser nula em todos os registros de desenvolvimento. `ID_CLIENTE`, `SAFRA_REF` e colunas derivadas do pagamento são rejeitadas por `preparar_entrada`.
 
-### Calibração e limiar de decisão
+</details>
+
+<details>
+<summary>Calibração e limiar de decisão</summary>
 
 Protocolo (`src/decisao.py`): modelo treinado até 2020-09; calibração e escolha de limiar em 2020-10 a 2020-12 (7.205 documentos); teste out-of-time em 2021-01 a 2021-06 (14.267 documentos, taxa de 6,29%).
 
@@ -67,7 +105,10 @@ Matriz de confusão no teste, probabilidade isotônica, limiar escolhido na jane
 
 Com limiar fixo de 0,5 e probabilidade bruta: precisão 0,665 e recall 0,321 (`reports/decisao_calibracao.json`).
 
-### Drift (PSI e KS por safra)
+</details>
+
+<details>
+<summary>Drift (PSI e KS por safra)</summary>
 
 Referência das variáveis: safras de 2018-08 a 2020-12. Referência do escore: 2020-10 a 2020-12, em predição fora da amostra de treino. Monitoradas: 2021-01 a 2021-06 (teste out-of-time) e 2021-07 a 2021-11 (base de teste do desafio). Alerta para PSI > 0,25 (`reports/drift.json`).
 
@@ -76,7 +117,10 @@ Referência das variáveis: safras de 2018-08 a 2020-12. Referência do escore: 
 - `NO_FUNCIONARIOS`: PSI entre 0,267 e 0,359 em todas as 11 safras monitoradas.
 - `MES_EMISSAO`, `DIA_EMISSAO`, `DIA_VENCIMENTO` e `TEMPO_CADASTRO_DIAS` também excedem 0,25, mas por construção (cada safra concentra um mês e o tempo de cadastro cresce com o calendário). São registradas como alertas estruturais e separadas dos alertas de drift.
 
-### Explicabilidade
+</details>
+
+<details>
+<summary>Explicabilidade (SHAP, IV e odds ratio)</summary>
 
 SHAP médio absoluto (LightGBM, 5.000 documentos do teste out-of-time; `reports/shap_resumo.png`): `PRAZO_DIAS` 0,68, `VALOR_A_PAGAR` 0,51, `CEP_2_DIG` 0,40, `MES_EMISSAO` 0,39, `TEMPO_CADASTRO_DIAS` 0,26.
 
@@ -94,47 +138,7 @@ IV e odds ratio em regressão logística sobre variáveis em WOE (ajustados até
 
 A regressão logística em WOE obteve AUC 0,8472, KS 0,5445 e Gini 0,6944 no teste out-of-time (6 safras), contra 0,9022 do LightGBM. O IV de `CEP_2_DIG` e `DDD` é calculado no mesmo período em que as faixas são ajustadas e essas variáveis têm dezenas de categorias, portanto está inflado.
 
-## Estrutura
-
-```
-src/
-  config.py            alvo, identificadores proibidos, lista única de variáveis, hiperparâmetros
-  data.py              leitura das bases, alvo, variáveis derivadas
-  features.py          preparar_entrada e Pipeline sklearn (imputação, codificação, LightGBM)
-  metrics.py           AUC, KS, Gini
-  auditoria.py         reprodução do vazamento de ID_CLIENTE
-  validacao.py         validação aleatória, por grupo e out-of-time
-  decisao.py           precisão, recall, matriz de confusão, limiar por custo, calibração
-  drift.py             PSI por variável e por escore, KS entre safras
-  explicabilidade.py   SHAP, IV, odds ratio
-  treino.py            treino final e serialização com joblib
-  api.py               API FastAPI
-tests/                 30 testes (pytest), com dados sintéticos
-reports/               saídas das execuções (JSON e PNG)
-Case_DataRisk_Notebook_Final_COMPLETO_APRESENTACAO.ipynb   notebook original
-```
-
-## Fluxo da solução
-
-```mermaid
-flowchart TD
-    A["Bases CSV: cadastral, info, pagamentos, teste"] --> B["data.py: junção das bases e alvo INADIMPLENTE (atraso de 5 dias ou mais)"]
-    B --> C["features.py: lista única de variáveis e Pipeline sklearn"]
-    C --> D["validacao.py: aleatória, por grupo de cliente e out-of-time"]
-    C --> E["decisao.py: limiar por custo e calibração"]
-    C --> F["explicabilidade.py: SHAP, IV e odds ratio"]
-    C --> G["treino.py: modelo final em joblib"]
-    G --> H["api.py: POST /score"]
-    B --> I["drift.py: PSI e KS por safra"]
-    G --> I
-    B --> J["auditoria.py: vazamento de ID_CLIENTE no notebook"]
-```
-
-## Relação com o notebook original
-
-- O código das células do notebook não foi alterado. Mudaram apenas textos: remoção de emojis e de espaços duplos nos títulos, uma célula nova de auditoria de vazamento (após a comparação de modelos) e a reescrita das células de comparação e de conclusão, que afirmavam AUC de 0,92 e "melhor desempenho geral".
-- O vazamento de `ID_CLIENTE` continua no código do notebook, por decisão de preservar o registro original, e está documentado na célula de auditoria.
-- Toda a lógica nova está em arquivos novos (`src/`, `tests/`, `reports/`). O notebook não importa esses módulos.
+</details>
 
 ## Como executar
 
@@ -176,7 +180,7 @@ MODELO_PATH=models/pipeline_modelo.joblib uvicorn src.api:app
 - Há drift em `VALOR_A_PAGAR` e `NO_FUNCIONARIOS` e deslocamento do escore em 2021-02 e 2021-03.
 - A base de desenvolvimento só tem pessoa jurídica; o modelo não se aplica a pessoa física.
 - `VALOR_A_PAGAR` tem 1,5% de nulos (1.170 de 77.414), imputados pela mediana.
-- O notebook original continua com o vazamento de `ID_CLIENTE` no código (documentado na seção de auditoria do próprio notebook). O arquivo de submissão por ele gerado usa esse modelo; as previsões do modelo revisado são geradas por `python -m src.treino --submissao`.
+- A Parte 1 do notebook continua com o vazamento de `ID_CLIENTE` no código e `submissao_case.csv` usa esse modelo. A Parte 2 gera `submissao_case_corrigida.csv` (5 variáveis, sem o identificador); as previsões do modelo de 14 variáveis são geradas por `python -m src.treino --submissao`.
 - O pickle original foi removido do índice do git, mas permanece no histórico de commits anteriores.
 
 ## Plano de evolução
@@ -187,3 +191,30 @@ MODELO_PATH=models/pipeline_modelo.joblib uvicorn src.api:app
 4. Definir limiar com custos reais de falso negativo e falso positivo e reavaliar a calibração quando houver mais safras.
 5. Automatizar o monitoramento de PSI e KS por safra com alerta acima de 0,25 e retreino condicionado.
 6. Empacotar a API em contêiner e adicionar integração contínua com os testes.
+
+## Estrutura do repositório
+
+```
+src/
+  config.py            alvo, identificadores proibidos, lista única de variáveis, hiperparâmetros
+  data.py              leitura das bases, alvo, variáveis derivadas
+  features.py          preparar_entrada e Pipeline sklearn (imputação, codificação, LightGBM)
+  metrics.py           AUC, KS, Gini
+  auditoria.py         reprodução do vazamento de ID_CLIENTE
+  validacao.py         validação aleatória, por grupo e out-of-time
+  decisao.py           precisão, recall, matriz de confusão, limiar por custo, calibração
+  drift.py             PSI por variável e por escore, KS entre safras
+  explicabilidade.py   SHAP, IV, odds ratio
+  treino.py            treino final e serialização com joblib
+  api.py               API FastAPI
+tests/                 30 testes (pytest), com dados sintéticos
+reports/               saídas das execuções (JSON e PNG)
+Case_DataRisk_Notebook_Final_COMPLETO_APRESENTACAO.ipynb   notebook original
+```
+
+## Relação com o notebook original
+
+- O notebook mantém as células originais, incluindo o vazamento de `ID_CLIENTE` no modelo da Parte 1, que está documentado na célula de auditoria.
+- A Parte 2 do notebook (final) remove `ID_CLIENTE`, mede o AUC em três esquemas de validação e gera `submissao_case_corrigida.csv`.
+- O código das células originais não foi alterado. Mudaram apenas textos (emojis removidos, conclusão corrigida) e foram acrescentadas células.
+- Toda a lógica nova está em `src/`, `tests/` e `reports/`. O notebook não importa esses módulos.
