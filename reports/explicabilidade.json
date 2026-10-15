@@ -1,0 +1,114 @@
+{
+  "shap_media_absoluta": {
+    "PRAZO_DIAS": 0.6814794985735582,
+    "VALOR_A_PAGAR": 0.5054501217223049,
+    "CEP_2_DIG": 0.3991793331010135,
+    "MES_EMISSAO": 0.3911277405382187,
+    "TEMPO_CADASTRO_DIAS": 0.25698832794131843,
+    "DDD": 0.19285851342181412,
+    "RENDA_MES_ANTERIOR": 0.16118152144433653,
+    "NO_FUNCIONARIOS": 0.1586074758160348,
+    "DIA_VENCIMENTO": 0.13829575049717324,
+    "PORTE": 0.13724965189162666,
+    "DOMINIO_EMAIL": 0.11326639556285889,
+    "DIA_EMISSAO": 0.11194593468280889,
+    "SEGMENTO_INDUSTRIAL": 0.0938743876878811,
+    "TAXA": 0.08478891642801006
+  },
+  "amostra_shap": 5000,
+  "iv": {
+    "VALOR_A_PAGAR": {
+      "iv": 0.8061024693632264,
+      "classe": "forte"
+    },
+    "TAXA": {
+      "iv": 0.011143565190736405,
+      "classe": "nao preditiva"
+    },
+    "RENDA_MES_ANTERIOR": {
+      "iv": 0.12277351081537413,
+      "classe": "media"
+    },
+    "NO_FUNCIONARIOS": {
+      "iv": 0.04743550369193779,
+      "classe": "fraca"
+    },
+    "MES_EMISSAO": {
+      "iv": 0.04627839964969738,
+      "classe": "fraca"
+    },
+    "DIA_EMISSAO": {
+      "iv": 0.028834679113038986,
+      "classe": "fraca"
+    },
+    "DIA_VENCIMENTO": {
+      "iv": 0.0564750067276572,
+      "classe": "fraca"
+    },
+    "PRAZO_DIAS": {
+      "iv": 0.8931903020281905,
+      "classe": "forte"
+    },
+    "TEMPO_CADASTRO_DIAS": {
+      "iv": 0.0765523470117202,
+      "classe": "fraca"
+    },
+    "DDD": {
+      "iv": 0.7851194495950209,
+      "classe": "forte"
+    },
+    "SEGMENTO_INDUSTRIAL": {
+      "iv": 0.09543447406183317,
+      "classe": "fraca"
+    },
+    "DOMINIO_EMAIL": {
+      "iv": 0.05637268025032208,
+      "classe": "fraca"
+    },
+    "PORTE": {
+      "iv": 0.11488751277985038,
+      "classe": "media"
+    },
+    "CEP_2_DIG": {
+      "iv": 0.8534310597459838,
+      "classe": "forte"
+    }
+  },
+  "odds_ratio_por_unidade_de_woe": {
+    "VALOR_A_PAGAR": 2.0156944855428423,
+    "TAXA": 1.9992717784582559,
+    "RENDA_MES_ANTERIOR": 2.0960823825519355,
+    "NO_FUNCIONARIOS": 1.6189911335392368,
+    "MES_EMISSAO": 3.384733057783178,
+    "DIA_EMISSAO": 1.307192900903995,
+    "DIA_VENCIMENTO": 1.4751137921802926,
+    "PRAZO_DIAS": 1.7253569212264834,
+    "TEMPO_CADASTRO_DIAS": 1.7718124614573871,
+    "DDD": 1.5644912755199984,
+    "SEGMENTO_INDUSTRIAL": 1.2628330318152554,
+    "DOMINIO_EMAIL": 1.191906336940261,
+    "PORTE": 1.6592059134504553,
+    "CEP_2_DIG": 1.7304420674967624
+  },
+  "coeficientes": {
+    "VALOR_A_PAGAR": 0.7009637938554163,
+    "TAXA": 0.6927830034846513,
+    "RENDA_MES_ANTERIOR": 0.7400700703390292,
+    "NO_FUNCIONARIOS": 0.4818031981760158,
+    "MES_EMISSAO": 1.2192750429246664,
+    "DIA_EMISSAO": 0.26788201434385717,
+    "DIA_VENCIMENTO": 0.3887351340569642,
+    "PRAZO_DIAS": 0.5454339399361566,
+    "TEMPO_CADASTRO_DIAS": 0.572003012190041,
+    "DDD": 0.44756070758200733,
+    "SEGMENTO_INDUSTRIAL": 0.2333576349579923,
+    "DOMINIO_EMAIL": 0.17555398916347298,
+    "PORTE": 0.5063391225239343,
+    "CEP_2_DIG": 0.5483769062123189
+  },
+  "logistica_out_of_time": {
+    "auc": 0.8472035097461913,
+    "ks": 0.54454639373829,
+    "gini": 0.6944070194923826
+  }
+}

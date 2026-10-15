@@ -1,0 +1,28 @@
+{
+  "colunas_x": [
+    "ID_CLIENTE",
+    "VALOR_A_PAGAR",
+    "TAXA",
+    "MES_EMISSAO",
+    "DIA_EMISSAO",
+    "DIA_VENCIMENTO"
+  ],
+  "identificador_presente": true,
+  "auc_com_id_cliente": {
+    "media": 0.9299490217748723,
+    "desvio": 0.002382248461472536
+  },
+  "auc_sem_id_cliente": {
+    "media": 0.8227488605718613,
+    "desvio": 0.004234791987993147
+  },
+  "validacao": "StratifiedKFold(5, shuffle=True, random_state=42), sem agrupamento",
+  "auc_grupo_cliente": {
+    "com_id_cliente": 0.6998654588462203,
+    "sem_id_cliente": 0.7473230513928174
+  },
+  "auc_out_of_time_k6": {
+    "com_id_cliente": 0.8256161358938504,
+    "sem_id_cliente": 0.7022151041158553
+  }
+}

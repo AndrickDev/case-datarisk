@@ -1,0 +1,19 @@
+# Dados e artefatos de modelo (nao versionar)
+*.csv
+*.pkl
+*.joblib
+data/
+models/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Ambiente
+.env
