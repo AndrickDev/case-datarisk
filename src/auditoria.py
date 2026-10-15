@@ -8,9 +8,9 @@ import json
 
 import lightgbm as lgb
 import pandas as pd
-from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.model_selection import GroupKFold, StratifiedKFold, cross_val_score
 
-from src.config import COL_ALVO, COL_ID, PARAMS_LGBM, REPORTS_DIR, SEMENTE
+from src.config import COL_ALVO, COL_ID, COL_SAFRA, PARAMS_LGBM, REPORTS_DIR, SEMENTE
 from src.data import carregar_bases, construir_alvo
 
 
@@ -32,6 +32,21 @@ def auc_cv(X, y):
     return float(s.mean()), float(s.std())
 
 
+def auc_grupo(X, y, grupos):
+    s = cross_val_score(lgb.LGBMClassifier(**PARAMS_LGBM), X, y, cv=GroupKFold(5), groups=grupos, scoring="roc_auc")
+    return float(s.mean()), float(s.std())
+
+
+def auc_out_of_time(X, y, safras, k=6):
+    """Treina nas safras anteriores e avalia nas k mais recentes (mesmo corte de src.validacao)."""
+    from src.metrics import auc
+    from src.validacao import split_out_of_time
+
+    tr, te = split_out_of_time(safras, k)
+    modelo = lgb.LGBMClassifier(**PARAMS_LGBM).fit(X.iloc[tr], y.iloc[tr])
+    return float(auc(y.iloc[te], modelo.predict_proba(X.iloc[te])[:, 1]))
+
+
 def executar():
     bases = carregar_bases()
     X, y = montar_x_notebook(bases["pagamentos"])
@@ -39,12 +54,23 @@ def executar():
     print("X.columns:", colunas)
     media_com, dp_com = auc_cv(X, y)
     media_sem, dp_sem = auc_cv(X.drop(columns=[COL_ID]), y)
+    pag = bases["pagamentos"]
+    grupos = pag[COL_ID].to_numpy()
+    safras = pag[COL_SAFRA].tolist()
+    sem_id = X.drop(columns=[COL_ID])
+    g_com, _ = auc_grupo(X, y, grupos)
+    g_sem, _ = auc_grupo(sem_id, y, grupos)
     resultado = {
         "colunas_x": colunas,
         "identificador_presente": COL_ID in colunas,
         "auc_com_id_cliente": {"media": media_com, "desvio": dp_com},
         "auc_sem_id_cliente": {"media": media_sem, "desvio": dp_sem},
         "validacao": "StratifiedKFold(5, shuffle=True, random_state=42), sem agrupamento",
+        "auc_grupo_cliente": {"com_id_cliente": g_com, "sem_id_cliente": g_sem},
+        "auc_out_of_time_k6": {
+            "com_id_cliente": auc_out_of_time(X, y, safras),
+            "sem_id_cliente": auc_out_of_time(sem_id, y, safras),
+        },
     }
     REPORTS_DIR.mkdir(exist_ok=True)
     (REPORTS_DIR / "auditoria_vazamento.json").write_text(
@@ -52,6 +78,8 @@ def executar():
     )
     print(f"AUC com ID_CLIENTE: {media_com:.4f} +- {dp_com:.4f}")
     print(f"AUC sem ID_CLIENTE: {media_sem:.4f} +- {dp_sem:.4f}")
+    print("AUC por grupo de cliente:", resultado["auc_grupo_cliente"])
+    print("AUC out-of-time k=6:", resultado["auc_out_of_time_k6"])
     return resultado
 
 
