@@ -114,6 +114,28 @@ reports/               saídas das execuções (JSON e PNG)
 Case_DataRisk_Notebook_Final_COMPLETO_APRESENTACAO.ipynb   notebook original
 ```
 
+## Fluxo da solução
+
+```mermaid
+flowchart TD
+    A["Bases CSV: cadastral, info, pagamentos, teste"] --> B["data.py: junção das bases e alvo INADIMPLENTE (atraso de 5 dias ou mais)"]
+    B --> C["features.py: lista única de variáveis e Pipeline sklearn"]
+    C --> D["validacao.py: aleatória, por grupo de cliente e out-of-time"]
+    C --> E["decisao.py: limiar por custo e calibração"]
+    C --> F["explicabilidade.py: SHAP, IV e odds ratio"]
+    C --> G["treino.py: modelo final em joblib"]
+    G --> H["api.py: POST /score"]
+    B --> I["drift.py: PSI e KS por safra"]
+    G --> I
+    B --> J["auditoria.py: vazamento de ID_CLIENTE no notebook"]
+```
+
+## Relação com o notebook original
+
+- O código das células do notebook não foi alterado. Mudaram apenas textos: remoção de emojis e de espaços duplos nos títulos, uma célula nova de auditoria de vazamento (após a comparação de modelos) e a reescrita das células de comparação e de conclusão, que afirmavam AUC de 0,92 e "melhor desempenho geral".
+- O vazamento de `ID_CLIENTE` continua no código do notebook, por decisão de preservar o registro original, e está documentado na célula de auditoria.
+- Toda a lógica nova está em arquivos novos (`src/`, `tests/`, `reports/`). O notebook não importa esses módulos.
+
 ## Como executar
 
 Python 3.12. Os arquivos `base_cadastral.csv`, `base_info.csv`, `base_pagamentos_desenvolvimento.csv` e `base_pagamentos_teste.csv` ficam fora do git; aponte a pasta com `DATA_DIR`.
